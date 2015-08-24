@@ -20,5 +20,5 @@ class Version extends Object
     // 关闭
     const STATUS_OFF = 0;
     // 开启
-    const STATUS_PENDING = 1;
+    const STATUS_ON = 1;
 }
