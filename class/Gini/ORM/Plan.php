@@ -7,7 +7,7 @@ class Plan extends Object
     public $group = 'object:group';
 
     // 版本信息，属于哪一轮采购
-    public $version = 'string:80';
+    public $version = 'object:version';
 
     // 使用责任人
     public $owner = 'string:80';
