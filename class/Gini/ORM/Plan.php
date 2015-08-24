@@ -29,7 +29,7 @@ class Plan extends Object
     public $status = 'int,default:0';
 
     public $ctime = 'datetime';
-    public $mtime = 'timestamp';
+    public $mtime = 'datetime';
 
     // 新建，未提交
     const STATUS_NEW = 0;
