@@ -1,0 +1,7 @@
+---
+default:
+  dsn: mysql:dbname=nankai_drug_precursor;host=db.gapper.in
+  username: genee
+  password: 83719730
+...
+
