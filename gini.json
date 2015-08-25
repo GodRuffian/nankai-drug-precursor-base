@@ -1,7 +1,7 @@
 {
     "id": "nankai-drug-precursor-base",
     "name": "Nankai Drug Precursor Base",
-    "description": "App description...",
+    "description": "",
     "version": "0.1.0",
     "dependencies": {
         "gini": "*",
