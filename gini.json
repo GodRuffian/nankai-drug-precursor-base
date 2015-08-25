@@ -3,5 +3,7 @@
     "name": "Nankai Drug Precursor Base",
     "description": "App description...",
     "version": "0.1.0",
-    "dependencies": []
+    "dependencies": {
+        "gini": "*"
+    }
 }
