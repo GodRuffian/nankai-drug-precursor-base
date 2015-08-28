@@ -39,4 +39,14 @@ class Plan extends Object
     const STATUS_DONE = 2;
     // 被驳回
     const STATUS_REJECTED = 3;
+
+    public static function getStatus()
+    {
+        return [
+            self::STATUS_NEW => T('未提交'),
+            self::STATUS_PENDING => T('申报中'),
+            self::STATUS_DONE => T('已申报'),
+            self::STATUS_REJECTED => T('被驳回')
+        ];
+    }
 }
