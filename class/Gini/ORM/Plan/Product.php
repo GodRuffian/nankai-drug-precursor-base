@@ -9,6 +9,7 @@ class Product extends \Gini\ORM\Object
 
     public $product_id = 'bigint';
     public $product_name = 'string:255';
+    public $product_cas_no = 'string:15';
     public $product_version = 'int';
     public $product_quantity = 'int';
     public $product_package = 'string:50';
