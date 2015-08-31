@@ -83,6 +83,63 @@ class Plan extends Object
         return [$hasErr, $data];
     }
 
+    private function convert2KG($package, $count, $casNO)
+    {
+        $data = [
+            // 苯乙酸
+            '103-82-2'=> 1.081,
+            // 醋酸酐
+            '108-24-7'=> 1.08,
+            // 三氯甲烷
+            '67-66-3'=> 1.489,
+            // 乙醚
+            '60-29-7'=> 0.714,
+            // 哌啶
+            '110-89-4'=> 0.86,
+            // 甲苯
+            '108-88-3'=> 0.866,
+            // 丙酮
+            '67-64-1'=> 0.79,
+            // 甲基乙基酮
+            '78-93-3'=> 0.804,
+            // 高锰酸钾
+            '7722-64-7'=> 0,
+            // 硫酸
+            '7664-93-9'=> 1.84,
+            // 盐酸
+            '7647-01-0'=> 1.18,
+        ];
+        $pattern = '/^(\d+(?:\.\d+)?)(ul|ml|l|mg|g|kg)$/i';
+        if (!preg_match($pattern, $package, $matches)) {
+            return false;
+        }
+
+        $value = 0;
+        $unit = strtolower($matches[2]);
+        $quantity = $matches[1];
+        switch ($unit) {
+        case 'ul':
+            $value = ($quantity / 1000) * $data[$casNO];
+            break;
+        case 'ml':
+            $value = $quantity * $data[$casNO];
+            break;
+        case 'l':
+            $value = ($quantity * 1000) * $data[$casNO];
+            break;
+        case 'mg':
+            $value = ($quantity / 1000 / 1000);
+            break;
+        case 'g':
+            $value = ($quantity / 1000);
+            break;
+        case 'kg':
+            $value = $quantity;
+            break;
+        }
+        return $value;
+    }
+
     public function getRemoteProducts()
     {
         static $result;
@@ -101,8 +158,14 @@ class Plan extends Object
             foreach ($data as $id=>$value) {
                 $tmp[$value['cas_no']]['ids'][] = $id;
                 $tmp[$value['cas_no']]['name'] = array_unique(array_merge((array)$tmp[$value['cas_no']]['name'], (array)$value['name']));
-                // TODO 单位换算
-                $tmp[$value['cas_no']]['total'] += $value['quantity'];
+                $tmpRA = $tmp[$value['cas_no']]['total'];
+                $tmpRB =  $this->convert2KG($value['package'], $value['quantity'], $value['cas_no']);
+                if ($tmpRA===false || $tmpRB===false) {
+                    $tmp[$value['cas_no']]['total'] = false;
+                }
+                else {
+                    $tmp[$value['cas_no']]['total'] += $tmpRB;
+                }
                 $tmp[$value['cas_no']]['orders'] = array_unique(array_merge((array)$tmp[$value['cas_no']]['orders'], (array)$value['orders']));
                 // 商品信息的源数据
                 $tmp[$value['cas_no']]['raw'][$id] = [
