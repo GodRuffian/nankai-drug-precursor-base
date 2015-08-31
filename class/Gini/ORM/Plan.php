@@ -172,7 +172,7 @@ class Plan extends Object
                     'name'=> $value['name'],
                     'quantity'=> $value['quantity'],
                     'package'=> $value['package'],
-                    'spec' => $values['spec'],
+                    'spec' => $value['spec'],
                     'vendor_id'=> $value['vendor_id'],
                     'vendor_name'=> $value['vendor_name'],
                 ];
