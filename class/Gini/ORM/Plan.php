@@ -119,13 +119,13 @@ class Plan extends Object
         $quantity = $matches[1];
         switch ($unit) {
         case 'ul':
-            $value = ($quantity / 1000) * $data[$casNO];
+            $value = ($quantity / 1000) * $data[$casNO] / 1000;
             break;
         case 'ml':
-            $value = $quantity * $data[$casNO];
+            $value = $quantity * $data[$casNO] / 1000;
             break;
         case 'l':
-            $value = ($quantity * 1000) * $data[$casNO];
+            $value = ($quantity * 1000) * $data[$casNO] / 100;
             break;
         case 'mg':
             $value = ($quantity / 1000 / 1000);
