@@ -83,7 +83,7 @@ class Plan extends Object
         return [$hasErr, $data];
     }
 
-    private function convert2KG($package, $count, $casNO)
+    public static function convert2KG($package, $count, $casNO)
     {
         $data = [
             // 苯乙酸
@@ -159,7 +159,7 @@ class Plan extends Object
                 $tmp[$value['cas_no']]['ids'][] = $id;
                 $tmp[$value['cas_no']]['name'] = array_unique(array_merge((array)$tmp[$value['cas_no']]['name'], (array)$value['name']));
                 $tmpRA = $tmp[$value['cas_no']]['total'];
-                $tmpRB =  $this->convert2KG($value['package'], $value['quantity'], $value['cas_no']);
+                $tmpRB =  self::convert2KG($value['package'], $value['quantity'], $value['cas_no']);
                 if ($tmpRA===false || $tmpRB===false) {
                     $tmp[$value['cas_no']]['total'] = false;
                 }
