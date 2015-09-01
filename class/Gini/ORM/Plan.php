@@ -137,7 +137,7 @@ class Plan extends Object
             $value = $quantity;
             break;
         }
-        return round($value, 4);
+        return round($count * $value, 4);
     }
 
     public function getRemoteProducts()
