@@ -193,6 +193,13 @@ class Plan extends Object
         return $result ?: [];
     }
 
+    public function department()
+    {
+        static $orgs;
+        if (!$orgs) $orgs = self::getORGs();
+        return $orgs['info'][$this->department];
+    }
+
     public static function getORGs()
     {
         $data = \Gini\Config::get('nankai');
