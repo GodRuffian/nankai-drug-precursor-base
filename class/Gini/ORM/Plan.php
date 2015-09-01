@@ -116,25 +116,25 @@ class Plan extends Object
 
         $value = 0;
         $unit = strtolower($matches[2]);
-        $quantity = $matches[1];
+        $package = $matches[1];
         switch ($unit) {
         case 'ul':
-            $value = ($quantity / 1000) * $data[$casNO] / 1000;
+            $value = ($package / 1000) * $data[$casNO] / 1000;
             break;
         case 'ml':
-            $value = $quantity * $data[$casNO] / 1000;
+            $value = $package * $data[$casNO] / 1000;
             break;
         case 'l':
-            $value = ($quantity * 1000) * $data[$casNO] / 100;
+            $value = ($package * 1000) * $data[$casNO] / 100;
             break;
         case 'mg':
-            $value = ($quantity / 1000 / 1000);
+            $value = ($package / 1000 / 1000);
             break;
         case 'g':
-            $value = ($quantity / 1000);
+            $value = ($package / 1000);
             break;
         case 'kg':
-            $value = $quantity;
+            $value = $package;
             break;
         }
         return round($count * $value, 4);
