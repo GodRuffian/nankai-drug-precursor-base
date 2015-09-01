@@ -192,4 +192,27 @@ class Plan extends Object
         }
         return $result ?: [];
     }
+
+    public static function getORGs()
+    {
+        $data = \Gini\Config::get('nankai');
+        $result = [];
+        $tree = [];
+        $info = [];
+        foreach ($data as $value) {
+            $key = '';
+            foreach ($value as $k=>$v) {
+                if (0==$k) {
+                    $key = $v['code'];
+                    $info[$v['code']] = $v['name'];
+                    $tree[$key] = [];
+                    continue;
+                }
+                if (!$key) continue;
+                $info[$v[0]['code']] = $v[0]['name'];
+                $tree[$key][] = $v[0]['code'];
+            }
+        }
+        return ['tree'=>$tree, 'info'=>$info];
+    }
 }
