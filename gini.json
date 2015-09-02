@@ -2,7 +2,7 @@
     "id": "nankai-drug-precursor-base",
     "name": "Nankai Drug Precursor Base",
     "description": "",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "dependencies": {
         "gini": "*",
         "gapper": "*"
