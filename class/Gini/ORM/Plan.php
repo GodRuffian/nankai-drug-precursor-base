@@ -222,4 +222,39 @@ class Plan extends Object
         }
         return ['tree'=>$tree, 'info'=>$info];
     }
+
+    public function canPrint()
+    {
+        if (!in_array($this->status, [
+                \Gini\ORM\Plan::STATUS_DONE,
+            ])) return false;
+        $confs = \Gini\Config::get('mall.rpc');
+        $conf = $confs['default'] ?: [];
+        try {
+            $rpc = \Gini\IoC::construct('\Gini\RPC', $conf['url']);
+            $client = \Gini\Config::get('mall.client');
+            $token = $rpc->mall->authorize($client['id'], $client['secret']);
+            if (!$token) return;
+            $pos = Those('plan/order')->Whose('plan')->is($this);
+            foreach ($pos as $po) {
+                $oids[] = $po->order_id;
+            }
+            $count = count($oids);
+            $statuses = [
+                \Gini\ORM\Plan\Order::STATUS_TRANSFERRED,
+                \Gini\ORM\Plan\Order::STATUS_PENDING_PAYMENT,
+                \Gini\ORM\Plan\Order::STATUS_PAID,
+            ];
+            $criteria = [
+                'id' => implode(',', $oids),
+                'status' => implode(',', $statuses)
+            ];
+            $data = (array)$rpc->mall->order->searchOrders($criteria);
+            $total = $data['total_count'];
+        }
+        catch(\Exception $e) {
+        }
+
+        return $count && ($total == $count);
+    }
 }
