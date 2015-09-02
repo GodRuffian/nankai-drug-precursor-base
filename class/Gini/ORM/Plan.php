@@ -126,7 +126,7 @@ class Plan extends Object
             $value = $package * $data[$casNO] / 1000;
             break;
         case 'l':
-            $value = ($package * 1000) * $data[$casNO] / 100;
+            $value = ($package * 1000) * $data[$casNO] / 1000;
             break;
         case 'mg':
             $value = ($package / 1000 / 1000);
