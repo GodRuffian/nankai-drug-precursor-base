@@ -176,6 +176,7 @@ class Plan extends Object
                     'vendor_name'=> $value['vendor_name'],
                 ];
             }
+            $result = [];
             foreach ($tmp as $casNO=>$value) {
                 $result[implode(',', $value['ids'])] = [
                     'name'=> implode(',', $value['name']),
