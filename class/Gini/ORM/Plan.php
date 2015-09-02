@@ -52,7 +52,8 @@ class Plan extends Object
 
     public function getNewInfo()
     {
-        $products = (array)$this->getRemoteProducts();
+        $products = $this->getRemoteProducts();
+        if (is_null($products)) return false;
         $info = (array)$this->info;
         $data = [];
         $hasErr = false;
@@ -189,8 +190,9 @@ class Plan extends Object
             }
         }
         catch(\Exception $e) {
+            $result = null;
         }
-        return $result ?: [];
+        return $result;
     }
 
     public function department()
