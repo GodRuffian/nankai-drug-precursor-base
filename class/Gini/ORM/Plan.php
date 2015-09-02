@@ -153,7 +153,7 @@ class Plan extends Object
             if (!$token) return;
             $round = those('round')->orderBy('id', 'desc')->limit(1)->current();
             if (!$round->id) return;
-            $data = (array)$rpc->mall->order->getDrugPrecursorProducts(_G('GROUP')->id, $round->ctime, date('Y-m-d H:i:s'));
+            $data = (array)$rpc->mall->order->getDrugPrecursorProducts($this->group->id, $round->ctime, date('Y-m-d H:i:s'));
             $tmp = [];
             foreach ($data as $id=>$value) {
                 $tmp[$value['cas_no']]['ids'][] = $id;
