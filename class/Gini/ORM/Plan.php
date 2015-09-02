@@ -143,8 +143,6 @@ class Plan extends Object
 
     public function getRemoteProducts()
     {
-        static $result;
-        if ($result) return $result;
         $confs = \Gini\Config::get('mall.rpc');
         $conf = $confs['default'] ?: [];
         try {
