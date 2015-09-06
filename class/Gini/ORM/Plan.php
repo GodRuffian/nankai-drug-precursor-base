@@ -46,7 +46,7 @@ class Plan extends Object
             self::STATUS_NEW => T('未提交'),
             self::STATUS_PENDING => T('申报中'),
             self::STATUS_DONE => T('已申报'),
-            self::STATUS_REJECTED => T('被驳回')
+            self::STATUS_REJECTED => T('已驳回')
         ];
     }
 
