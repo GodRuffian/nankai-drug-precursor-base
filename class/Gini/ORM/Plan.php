@@ -31,6 +31,10 @@ class Plan extends Object
     public $ctime = 'datetime';
     public $mtime = 'datetime';
 
+    protected static $db_index = [
+        'unique:group,round'
+    ];
+
     // 新建，未提交
     const STATUS_NEW = 0;
     // 申报中
