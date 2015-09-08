@@ -86,30 +86,7 @@ class Plan extends Object
 
     public static function convert2KG($package, $count, $casNO)
     {
-        $data = [
-            // 苯乙酸
-            '103-82-2'=> 1.081,
-            // 醋酸酐
-            '108-24-7'=> 1.08,
-            // 三氯甲烷
-            '67-66-3'=> 1.489,
-            // 乙醚
-            '60-29-7'=> 0.714,
-            // 哌啶
-            '110-89-4'=> 0.86,
-            // 甲苯
-            '108-88-3'=> 0.866,
-            // 丙酮
-            '67-64-1'=> 0.79,
-            // 甲基乙基酮
-            '78-93-3'=> 0.804,
-            // 高锰酸钾
-            '7722-64-7'=> 0,
-            // 硫酸
-            '7664-93-9'=> 1.84,
-            // 盐酸
-            '7647-01-0'=> 1.18,
-        ];
+        $confs = \Gini\Config::get('drug-precursor.list');
         $pattern = '/^(\d+(?:\.\d+)?)(ul|ml|l|mg|g|kg)$/i';
         if (!preg_match($pattern, $package, $matches)) {
             return false;
@@ -118,15 +95,16 @@ class Plan extends Object
         $value = 0;
         $unit = strtolower($matches[2]);
         $package = $matches[1];
+        $ml2g = isset($confs[$casNO]['ml2g']) ? $confs[$casNO]['ml2g'] : 0;
         switch ($unit) {
         case 'ul':
-            $value = ($package / 1000) * $data[$casNO] / 1000;
+            $value = ($package / 1000) * $ml2g / 1000;
             break;
         case 'ml':
-            $value = $package * $data[$casNO] / 1000;
+            $value = $package * $ml2g / 1000;
             break;
         case 'l':
-            $value = ($package * 1000) * $data[$casNO] / 1000;
+            $value = ($package * 1000) * $ml2g / 1000;
             break;
         case 'mg':
             $value = ($package / 1000 / 1000);
@@ -145,6 +123,7 @@ class Plan extends Object
     {
         $confs = \Gini\Config::get('mall.rpc');
         $conf = $confs['default'] ?: [];
+        $list = \Gini\Config::get('drug-precursor.list');
         try {
             $rpc = \Gini\IoC::construct('\Gini\RPC', $conf['url']);
             $client = \Gini\Config::get('mall.client');
@@ -179,7 +158,7 @@ class Plan extends Object
             $result = [];
             foreach ($tmp as $casNO=>$value) {
                 $result[implode(',', $value['ids'])] = [
-                    'name'=> implode(',', $value['name']),
+                    'name'=> isset($list[$casNO]['name']) ? $list[$casNO]['name'] : implode(',', $value['name']),
                     'cas_no'=> $casNO,
                     'total'=> $value['total'],
                     'orders'=> $value['orders'],

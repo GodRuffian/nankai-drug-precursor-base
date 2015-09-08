@@ -32,6 +32,11 @@ class NankaiDrugPrecursorBase
             }
         }
 
+        $confs = \Gini\Config::get('drug-precursor.list');
+        if (empty($confs)) {
+            $error[] = '请配置drug-precursor.list';
+        }
+
         if (!empty($error)) {
             return $error;
         }
