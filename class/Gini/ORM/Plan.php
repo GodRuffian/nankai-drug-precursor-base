@@ -60,6 +60,7 @@ class Plan extends Object
         if (is_null($products)) return false;
         $info = (array)$this->info;
         $data = [];
+        $orders = [];
         $hasErr = false;
         if (!empty($info)) {
             foreach ($info as $pid=>$value) {
@@ -76,6 +77,7 @@ class Plan extends Object
                         // 商品信息的源数据
                         'raw'=> $value['raw'],
                     ];
+                    $orders = array_merge($orders, (array)$value['orders']);
                 }
             }
             if (!$hasErr && !empty(array_diff(array_keys($info), array_keys($products)))) {
@@ -85,6 +87,17 @@ class Plan extends Object
         foreach (array_diff(array_keys($products), array_keys($data)) as $pid) {
             $data[$pid] = $products[$pid];
             $hasErr = true;
+        }
+        if (!$hasErr) {
+            $myOrders = [];
+            foreach ($products as $product) {
+                $myOrders = array_merge($myOrders, (array)$product['orders']);
+            }
+            $orders = array_unique($orders);
+            $myOrders = array_unique($myOrders);
+            if (!empty(array_diff($orders, $myOrders)) || !empty(array_diff($myOrders, $orders))) {
+                $hasErr = true;
+            }
         }
         return [$hasErr, $data];
     }
