@@ -235,16 +235,16 @@ class Plan extends Object
             if (!$token) return;
             $pos = Those('plan/order')->Whose('plan')->is($this);
             foreach ($pos as $po) {
-                $oids[] = $po->order_id;
+                $ovouchers[] = $po->order_voucher;
             }
-            $count = count($oids);
+            $count = count($ovouchers);
             $statuses = [
                 \Gini\ORM\Plan\Order::STATUS_TRANSFERRED,
                 \Gini\ORM\Plan\Order::STATUS_PENDING_PAYMENT,
                 \Gini\ORM\Plan\Order::STATUS_PAID,
             ];
             $criteria = [
-                'id' => implode(',', $oids),
+                'voucher' => implode(',', $ovouchers),
                 'status' => implode(',', $statuses)
             ];
             $data = (array)$rpc->mall->order->searchOrders($criteria);
