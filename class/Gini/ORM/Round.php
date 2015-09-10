@@ -19,4 +19,6 @@ class Round extends Object
     const STATUS_OFF = 0;
     // 开启
     const STATUS_ON = 1;
+    // 正在关闭
+    const STATUS_CLOSING = 2;
 }
