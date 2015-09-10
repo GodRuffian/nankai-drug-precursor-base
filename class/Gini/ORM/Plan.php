@@ -84,6 +84,7 @@ class Plan extends Object
         }
         foreach (array_diff(array_keys($products), array_keys($data)) as $pid) {
             $data[$pid] = $products[$pid];
+            $hasErr = true;
         }
         return [$hasErr, $data];
     }
