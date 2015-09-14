@@ -12,6 +12,9 @@ class Round extends Object
     // 结束时间
     public $end_time = 'datetime';
 
+    // 开启和关闭的时序
+    public $chronology = 'array';
+
     public $ctime = 'datetime';
     public $mtime = 'datetime';
 

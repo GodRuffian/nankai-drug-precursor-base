@@ -147,9 +147,10 @@ class Plan extends Object
             $client = \Gini\Config::get('mall.client');
             $token = $rpc->mall->authorize($client['id'], $client['secret']);
             if (!$token) return;
-            $round = those('round')->orderBy('id', 'desc')->limit(1)->current();
+            $round = $this->round;
             if (!$round->id) return;
-            $data = (array)$rpc->mall->order->getDrugPrecursorProducts($this->group->id, $round->ctime, date('Y-m-d H:i:s'));
+            $chrononlogy = (array)$round->chrononlogy;
+            $data = (array)$rpc->mall->order->getDrugPrecursorProducts($this->group->id, $chrononlogy);
             $tmp = [];
             foreach ($data as $id=>$value) {
                 $tmp[$value['cas_no']]['ids'][] = $id;
