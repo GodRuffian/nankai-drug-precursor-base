@@ -149,8 +149,8 @@ class Plan extends Object
             if (!$token) return;
             $round = $this->round;
             if (!$round->id) return;
-            $chrononlogy = (array)$round->chrononlogy;
-            $data = (array)$rpc->mall->order->getDrugPrecursorProducts($this->group->id, $chrononlogy);
+            $chronology = (array)$round->chronology;
+            $data = (array)$rpc->mall->order->getDrugPrecursorProducts($this->group->id, $chronology);
             $tmp = [];
             foreach ($data as $id=>$value) {
                 $tmp[$value['cas_no']]['ids'][] = $id;
