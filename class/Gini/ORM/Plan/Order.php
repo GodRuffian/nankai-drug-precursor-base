@@ -17,6 +17,9 @@ class Order extends \Gini\ORM\Object
     const STATUS_RETURNING_APPROVAL = 10;
     const STATUS_NEED_CUSTOMER_APPROVE = 11;
 
+    const PAYMENT_STATUS_UNABLE = 0;
+    const PAYMENT_STATUS_PENDING = 1;
+
     // 计划信息
     public $plan = 'object:plan';
 
