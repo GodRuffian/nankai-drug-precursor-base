@@ -20,6 +20,8 @@ class Order extends \Gini\ORM\Object
     const PAYMENT_STATUS_UNABLE = 0;
     const PAYMENT_STATUS_PENDING = 1;
 
+    const LABEL_DRUG_PRECURSOR = 1;
+
     // 计划信息
     public $plan = 'object:plan';
 
