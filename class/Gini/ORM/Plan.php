@@ -65,7 +65,7 @@ class Plan extends Object
         if (!empty($info)) {
             foreach ($info as $pid=>$value) {
                 if (isset($products[$pid])) {
-                    if (!$hasErr && (!$products[$pid]['total'] || $value['total']!=$products[$pid]['total'])) {
+                    if (!$hasErr && (!$products[$pid]['total'] || round($value['total'], 4)!=round($products[$pid]['total'], 4))) {
                         $hasErr = true;
                     }
                     $data[$pid] = [
