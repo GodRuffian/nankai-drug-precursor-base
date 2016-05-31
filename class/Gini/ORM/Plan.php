@@ -201,7 +201,7 @@ class Plan extends Object
 
     public static function getORGs()
     {
-        $data = \Gini\Config::get('nankai');
+        $data = \Gini\Config::get('nankai.drug-precursor-orgs');
         $result = [];
         $tree = [];
         $info = [];
