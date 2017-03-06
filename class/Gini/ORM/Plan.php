@@ -236,7 +236,7 @@ class Plan extends Object
             if (!$token) return;
             $pos = Those('plan/order')->Whose('plan')->is($this);
             foreach ($pos as $po) {
-                $ovouchers[] = $po->order_voucher;
+                $ovouchers[$po->order_voucher] = $po->order_voucher;
             }
             $count = count($ovouchers);
             $statuses = [
